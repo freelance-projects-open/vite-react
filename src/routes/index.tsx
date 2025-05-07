@@ -1,39 +1,59 @@
 import { createFileRoute } from "@tanstack/react-router";
-import logo from "../logo.svg";
+import { Play } from "lucide-react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
 	component: App,
 });
 
-function App() {
-	return (
-		<div className="text-center">
-			<header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
-				<img
-					src={logo}
-					className="h-[40vmin] pointer-events-none animate-[spin_20s_linear_infinite]"
-					alt="logo"
-				/>
-				<p>
-					Edit <code>src/routes/index.tsx</code> and save to reload.
-				</p>
-				<a
-					className="text-[#61dafb] hover:underline"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				<a
-					className="text-[#61dafb] hover:underline"
-					href="https://tanstack.com"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn TanStack
-				</a>
-			</header>
-		</div>
-	);
+
+
+export default function App() {
+  const [videos] = useState([
+    {
+      id: 1,
+      thumbnail: "/api/placeholder/400/300",
+      title: "Video 1",
+    },
+    {
+      id: 2,
+      thumbnail: "/api/placeholder/400/300",
+      title: "Video 2",
+    },
+    {
+      id: 3,
+      thumbnail: "/api/placeholder/400/300",
+      title: "Video 3",
+    },
+  ]);
+
+  return (
+    <div className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-100">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center mb-2">Watch Our Videos</h2>
+        <p className="text-gray-600 text-center mb-6 sm:mb-10 max-w-2xl mx-auto text-sm sm:text-base">
+          Dignissimux asperiores vitae velit veniam totam fuga molestias accusamus alias autem
+          provident. Odit ab aliquam dolor eius.
+        </p>
+
+        {/* Responsive layout with breakpoints optimized for notebook/laptop */}
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+          {videos.map((video) => (
+            <div key={video.id} className="relative rounded-lg overflow-hidden shadow-md w-full sm:w-1/3 mb-4 sm:mb-0">
+              <img 
+                src={video.thumbnail} 
+                alt={video.title} 
+                className="w-full h-40 sm:h-48 lg:h-56 object-cover"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <button className="bg-white rounded-full p-2 sm:p-3 shadow-lg hover:bg-orange-500 hover:text-white transition-colors">
+                  <Play size={22} className="text-orange-500 hover:text-white" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
